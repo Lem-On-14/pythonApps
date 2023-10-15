@@ -1,0 +1,97 @@
+<BtnGroup@Button>:
+    font_size: 36
+    text: ''
+    canvas.after:
+        Color:
+            rgba: [0, 0, 0, 1]
+        Line:
+            rectangle: [self.x, self.y, self.width, self.height]
+            width: 3
+<Btn@BtnGroup>:             # BtnStart and BtnStop
+    background_normal: ''
+    background_color: [0.2, 0.7, 0.2, 1]
+<BtnOperation@BtnGroup>:    # BtnLt, BtnRollLt, BtnRollRt, BtnRt
+    canvas.before:
+        Color:
+            rgba: [0.2, 0.85, 0.2, 1]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<BtnStart@Btn>:
+    text: 'Start'
+<BtnStop@Btn>:
+    text: 'Stop'
+<BtnLt@BtnOperation>:
+    background_normal: './LeftArrow.png'
+<BtnRt@BtnOperation>:
+    background_normal: './RightArrow.png'
+<BtnRollLt@BtnOperation>:
+    background_normal: './lra.png'
+<BtnRollRt@BtnOperation>:
+    background_normal: './rra.png'
+<BtnUnder@BtnOperation>:
+    background_normal: './UnderArrow.png'
+
+<FieldWidget>:
+
+<PlayWidget>:
+    canvas.before:
+        Color:
+            rgba: [200, 50, 90, 1]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            size_hint_x: 3
+            FieldWidget:
+                id: fw
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: 4
+            AnchorLayout:
+                anchor_x: 'center'
+                anchor_y: 'center'
+                size_hint_y: 4
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: [None, None]
+                    size: [fw.wsize*16, fw.hsize*16]
+                    BoxLayout:
+                        size_hint: [1, 0.25]
+                        # startボタンとstopボタンの動作は次回以降
+                        BtnStart:
+                        BtnStop:
+                    BoxLayout:
+                        size_hint: [1, 0.25]
+                        # scoreと次のミノを表示する予定
+                    BoxLayout:
+                        size_hint: [1, 0.25]
+                        BtnLt:
+                            size_hint: [0.25, 1]
+                            on_press: if(fw.currentMino != None): fw.moveLeft()
+                        BtnRollLt:
+                            size_hint: [0.25, 1]
+                            on_press: if(fw.currentMino != None): fw.rollLeft()
+                        BtnRollRt:
+                            size_hint: [0.25, 1]
+                            on_press: if(fw.currentMino != None): fw.rollRight()
+                        BtnRt:
+                            size_hint: [0.25, 1]
+                            on_press: if(fw.currentMino != None): fw.moveRight()
+                    BtnUnder:
+                        size_hint: [1, 0.25]
+                        on_press: if(fw.currentMino != None): fw.moveUnder()
+            Button:
+                background_normal: ''
+                background_color: [1, 1, 1, 1]
+                color: [0.8, 0.8, 0.8, 1]
+                font_size: 36
+                pos_hint: {'right':1, 'y':0}
+                size_hint: [None, None]
+                size: [200, 100]
+                text: 'Title -->'
+                on_press: root.gotoTitleDisplay()

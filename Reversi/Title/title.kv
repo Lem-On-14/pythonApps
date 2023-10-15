@@ -1,0 +1,15 @@
+# -*- coding: utf-8 -*-
+<TitleWidget@FloatLayout>:
+    Label:
+        text: 'Reversi64'
+        color: [0, 0, 0, 1]
+        font_size: 72
+        pos_hint: {'center_x':0.5, 'center_y':0.7}
+    Button:
+        text: 'Start'
+        font_size: 36
+        size: [160, 100]
+        size_hint: [None, None]
+        pos_hint: {'center_x':0.5, 'center_y':0.3}
+        background_color: [0, 0, 0, 1]
+        on_press: app.root.gotoSelectTurn()
